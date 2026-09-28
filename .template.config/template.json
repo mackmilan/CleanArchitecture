@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/template",
-  "author": "JasonTaylorDev",
+  "author": "Andre Silva",
   "classifications": [
     "Angular",
     "API",
@@ -17,8 +17,8 @@
     "Web API"],
   "name": "Clean Architecture Solution",
   "description": "A Clean Architecture Solution Template supporting Angular, React, Vue, Blazor, and Web API-only apps built with ASP.NET Core and Aspire.",
-  "identity": "Clean.Architecture.Solution.CSharp",
-  "groupIdentity": "Clean.Architecture.Solution",
+  "identity": "Mackmilan.CleanArchitecture.Solution.CSharp",
+  "groupIdentity": "Mackmilan.CleanArchitecture.Solution",
   "shortName": "ca-sln",
   "tags": {
     "language": "C#",
@@ -216,7 +216,7 @@
       "generator": "constant",
       "replaces": "caRepositoryUrl",
       "parameters": {
-        "value": "https://github.com/jasontaylordev/CleanArchitecture"
+        "value": "https://github.com/mackmilan/CleanArchitecture"
       }
     },
     "caDocsUrl": {

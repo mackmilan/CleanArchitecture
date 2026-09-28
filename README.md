@@ -2,8 +2,8 @@
 
 [![Build](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/build.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/build.yml)
 [![CodeQL](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql.yml/badge.svg)](https://github.com/jasontaylordev/CleanArchitecture/actions/workflows/codeql.yml)
-[![Nuget](https://img.shields.io/nuget/v/Clean.Architecture.Solution.Template?label=NuGet)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
-[![Nuget](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template?label=Downloads)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
+[![Nuget](https://img.shields.io/nuget/v/Mackmilan.CleanArchitecture.Solution.Template?label=NuGet)](https://www.nuget.org/packages/Mackmilan.CleanArchitecture.Solution.Template)
+[![Nuget](https://img.shields.io/nuget/dt/Mackmilan.CleanArchitecture.Solution.Template?label=Downloads)](https://www.nuget.org/packages/Mackmilan.CleanArchitecture.Solution.Template)
 ![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev?label=Follow&style=social)
 
 The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a new app with Angular, React, Vue + TypeScript, Blazor WebAssembly, or Web API only, powered by ASP.NET Core and Aspire. Getting started is easy - simply install the **.NET template** (see below for full details).
@@ -23,7 +23,7 @@ If you find this project useful, please give it a star. Thanks! ⭐
 ### Install the template
 
 ```bash
-dotnet new install Clean.Architecture.Solution.Template
+dotnet new install Mackmilan.CleanArchitecture.Solution.Template
 ```
 
 ### Create a new solution

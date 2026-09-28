@@ -1,6 +1,6 @@
 ﻿# CleanArchitecture
 
-The project was generated using the [Clean.Architecture.Solution.Template](caRepositoryUrl) version caPackageVersion.
+The project was generated using the [Mackmilan.CleanArchitecture.Solution.Template](caRepositoryUrl) version caPackageVersion.
 
 ## Build
 
@@ -45,7 +45,7 @@ dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
 If you encounter the error *"No templates or subcommands found matching: 'ca-usecase'."*, install the template and try again:
 
 ```bash
-dotnet new install Clean.Architecture.Solution.Template::caPackageVersion
+dotnet new install Mackmilan.CleanArchitecture.Solution.Template::caPackageVersion
 ```
 
 ## Test

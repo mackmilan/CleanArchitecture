@@ -1,13 +1,13 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "JasonTaylorDev",
+  "author": "Andre Silva",
   "classifications": [
     "Clean Architecture"
   ],
   "name": "Clean Architecture Solution Use Case",
   "description":  "Create a new use case (query or command)",
-  "identity": "Clean.Architecture.Solution.UseCase.CSharp",
-  "groupIdentity": "Clean.Architecture.Solution.UseCase",
+  "identity": "Mackmilan.CleanArchitecture.Solution.UseCase.CSharp",
+  "groupIdentity": "Mackmilan.CleanArchitecture.Solution.UseCase",
   "shortName": "ca-usecase",
   "tags": {
     "language": "C#",

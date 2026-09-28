@@ -2,18 +2,18 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
 
-    <id>Clean.Architecture.Solution.Template</id>
+    <id>Mackmilan.CleanArchitecture.Solution.Template</id>
     <version>0.0.0</version>
     <title>Clean Architecture Solution Template</title>
-    <authors>JasonTaylorDev</authors>
+    <authors>Andre Silva</authors>
     <description>A Clean Architecture Solution Template supporting Angular, React, Vue with TypeScript, Blazor WebAssembly, and Web API-only apps built with ASP.NET Core and Aspire.</description>
     <summary>
       A Clean Architecture Solution Template supporting Angular, React, Vue with TypeScript, Blazor WebAssembly, and Web API-only apps built with ASP.NET Core and Aspire.
     </summary>
     <releaseNotes></releaseNotes>
 
-    <projectUrl>https://cleanarchitecture.jasontaylor.dev</projectUrl>
-    <repository type="git" url="https://github.com/JasonTaylorDev/CleanArchitecture.git" branch="main" />
+    <projectUrl>https://github.com/mackmilan/CleanArchitecture</projectUrl>
+    <repository type="git" url="https://github.com/mackmilan/CleanArchitecture.git" branch="main" />
 
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
