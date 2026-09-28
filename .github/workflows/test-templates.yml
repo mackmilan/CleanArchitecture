@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        client-framework: [angular, react, vue, none]
+        client-framework: [angular, react, vue, blazor, none]
         database: [sqlite, sqlserver, postgresql]
 
     steps:

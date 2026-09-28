@@ -6,9 +6,9 @@
     <version>0.0.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>JasonTaylorDev</authors>
-    <description>A Clean Architecture Solution Template supporting Angular, React, Vue with TypeScript, and Web API-only apps built with ASP.NET Core and Aspire.</description>
+    <description>A Clean Architecture Solution Template supporting Angular, React, Vue with TypeScript, Blazor WebAssembly, and Web API-only apps built with ASP.NET Core and Aspire.</description>
     <summary>
-      A Clean Architecture Solution Template supporting Angular, React, Vue with TypeScript, and Web API-only apps built with ASP.NET Core and Aspire.
+      A Clean Architecture Solution Template supporting Angular, React, Vue with TypeScript, Blazor WebAssembly, and Web API-only apps built with ASP.NET Core and Aspire.
     </summary>
     <releaseNotes></releaseNotes>
 
@@ -17,7 +17,7 @@
 
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <tags>clean-architecture project template csharp dotnet angular react vue typescript webapi aspire</tags>
+    <tags>clean-architecture project template csharp dotnet angular react vue typescript blazor webassembly webapi aspire</tags>
     <icon>icon.png</icon>
     <readme>README.md</readme>
 

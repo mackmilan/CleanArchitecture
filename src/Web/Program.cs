@@ -25,11 +25,16 @@ else
 }
 
 app.UseHttpsRedirection();
-app.UseCors(static builder => 
+app.UseCors(static builder =>
     builder.AllowAnyMethod()
         .AllowAnyHeader()
         .AllowAnyOrigin());
 
+// Blazor WebAssembly assets are served from the Web host so browser API calls
+// and cookie authentication remain same-origin.
+#if (UseBlazor)
+app.UseBlazorFrameworkFiles();
+#endif
 app.UseFileServer();
 
 app.MapOpenApi();

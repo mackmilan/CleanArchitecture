@@ -1,5 +1,5 @@
 param (
-    [string[]]$ClientFramework = @("angular", "react", "vue", "none"),
+    [string[]]$ClientFramework = @("angular", "react", "vue", "blazor", "none"),
     [string[]]$Database = @("sqlite", "sqlserver", "postgresql")
 )
 

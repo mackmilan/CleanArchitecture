@@ -47,9 +47,15 @@ public class AspireSetup
             .StartAsync(cancellationToken)
             .WaitAsync(cancellationToken);
 
-        await Task.WhenAll(
-            App.ResourceNotifications.WaitForResourceHealthyAsync(Services.WebApi, cancellationToken).WaitAsync(cancellationToken),
-            App.ResourceNotifications.WaitForResourceHealthyAsync(Services.WebFrontend, cancellationToken).WaitAsync(cancellationToken));
+        await App.ResourceNotifications
+            .WaitForResourceHealthyAsync(Services.WebApi, cancellationToken)
+            .WaitAsync(cancellationToken);
+
+#if (!UseBlazor)
+        await App.ResourceNotifications
+            .WaitForResourceHealthyAsync(Services.WebFrontend, cancellationToken)
+            .WaitAsync(cancellationToken);
+#endif
     }
 
     [OneTimeTearDown]

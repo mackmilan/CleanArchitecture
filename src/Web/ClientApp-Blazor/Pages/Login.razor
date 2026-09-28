@@ -1,0 +1,56 @@
+@page "/login"
+@inject AuthService Authentication
+@inject NavigationManager Navigation
+
+<PageTitle>Log in</PageTitle>
+
+<article class="auth-card">
+    <h1>Log in</h1>
+    <form @onsubmit="HandleSubmitAsync" @onsubmit:preventDefault="true">
+        <label for="email">Email</label>
+        <input id="email" @bind="email" type="email" autocomplete="username" required />
+
+        <label for="password">Password</label>
+        <input id="password" @bind="password" type="password" autocomplete="current-password" required />
+
+        @if (invalidCredentials)
+        {
+            <p id="login-error" class="error" role="alert">Invalid email or password.</p>
+        }
+
+        <button type="submit" disabled="@isSubmitting">Log in</button>
+        <p class="form-footer">Don't have an account? <NavLink href="/register">Register</NavLink></p>
+    </form>
+</article>
+
+@code {
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private bool invalidCredentials;
+    private bool isSubmitting;
+
+    private async Task HandleSubmitAsync()
+    {
+        invalidCredentials = false;
+        isSubmitting = true;
+
+        try
+        {
+            if (await Authentication.LoginAsync(email, password))
+            {
+                Navigation.NavigateTo("/");
+                return;
+            }
+
+            invalidCredentials = true;
+        }
+        catch (HttpRequestException)
+        {
+            invalidCredentials = true;
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}

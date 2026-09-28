@@ -14,7 +14,19 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
+    <!--#if (UseBlazor)-->
+    <ProjectReference Include="ClientApp\ClientApp.csproj" />
+    <!--#endif-->
   </ItemGroup>
+
+  <!--#if (UseBlazor)-->
+  <ItemGroup>
+    <!-- The client is nested under this project, so opt it out of the Web SDK's default source globs. -->
+    <Compile Remove="ClientApp\**\*.cs" />
+    <Content Remove="ClientApp\**\*" />
+    <RazorComponent Remove="ClientApp\**\*.razor" />
+  </ItemGroup>
+  <!--#endif-->
 
   <ItemGroup>
     <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" />
@@ -34,9 +46,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Scalar.AspNetCore" />
+    <!--#if (UseBlazor)-->
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+    <!--#endif-->
   </ItemGroup>
 
   <!--#if (!UseApiOnly)-->
+  <!--#if (!UseBlazor)-->
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
@@ -64,5 +80,6 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+  <!--#endif-->
   <!--#endif-->
 </Project>

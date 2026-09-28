@@ -1,0 +1,190 @@
+@page "/todo"
+@inject HttpClient Http
+
+<PageTitle>Tasks</PageTitle>
+
+<section>
+    <h1>Tasks</h1>
+    <p>Manage your todo lists and tasks.</p>
+
+    @if (isLoading)
+    {
+        <p aria-busy="true">Loading your task lists…</p>
+    }
+    else if (!string.IsNullOrWhiteSpace(errorMessage) && lists.Count == 0)
+    {
+        <p class="error" role="alert">@errorMessage</p>
+    }
+    else
+    {
+        @if (!string.IsNullOrWhiteSpace(errorMessage))
+        {
+            <p class="error" role="alert">@errorMessage</p>
+        }
+
+        <form class="inline-form" @onsubmit="CreateListAsync" @onsubmit:preventDefault="true">
+            <label class="visually-hidden" for="new-list-title">New list name</label>
+            <input id="new-list-title" @bind="newListTitle" placeholder="New list name" required />
+            <button type="submit">Add list</button>
+        </form>
+
+        @if (lists.Count == 0)
+        {
+            <p>No task lists yet. Create one to get started.</p>
+        }
+        else
+        {
+            <div class="todo-lists">
+                @foreach (var list in lists)
+                {
+                    <article class="todo-list" @key="list.Id">
+                        <div class="list-heading">
+                            <h2>@list.Title</h2>
+                            <button class="secondary" type="button" @onclick="() => DeleteListAsync(list.Id)">Delete list</button>
+                        </div>
+                        <ul class="todo-items">
+                            @foreach (var item in list.Items)
+                            {
+                                <li @key="item.Id">
+                                    <label class="todo-item-label">
+                                        <input type="checkbox" checked="@item.Done" @onchange="() => ToggleItemAsync(item)" />
+                                        <span class="@(item.Done ? "todo-done" : null)">@item.Title</span>
+                                    </label>
+                                    <button class="icon-button" type="button" aria-label="Delete @item.Title" @onclick="() => DeleteItemAsync(item.Id)">×</button>
+                                </li>
+                            }
+                        </ul>
+                        <form class="inline-form" @onsubmit="() => CreateItemAsync(list.Id)" @onsubmit:preventDefault="true">
+                            <label class="visually-hidden" for="new-item-@list.Id">New task</label>
+                            <input id="new-item-@list.Id" @bind="newItemTitle" placeholder="Add a task" required />
+                            <button type="submit">Add task</button>
+                        </form>
+                    </article>
+                }
+            </div>
+        }
+    }
+</section>
+
+@code {
+    private List<TodoListDto> lists = [];
+    private IReadOnlyCollection<ColourDto> colours = [];
+    private string newListTitle = string.Empty;
+    private string newItemTitle = string.Empty;
+    private string? errorMessage;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync() => await LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+
+        try
+        {
+            var result = await Http.GetFromJsonAsync<TodosVmDto>("/api/TodoLists");
+            lists = result?.Lists.ToList() ?? [];
+            colours = result?.Colours ?? [];
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        {
+            errorMessage = "Please log in to manage your task lists.";
+        }
+        catch (HttpRequestException)
+        {
+            errorMessage = "Unable to load your task lists. Please try again later.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task CreateListAsync()
+    {
+        var title = newListTitle.Trim();
+        if (title.Length == 0) return;
+
+        try
+        {
+            using var response = await Http.PostAsJsonAsync("/api/TodoLists", new
+            {
+                title,
+                colour = colours.FirstOrDefault()?.Code ?? string.Empty
+            });
+            response.EnsureSuccessStatusCode();
+            newListTitle = string.Empty;
+            await LoadAsync();
+        }
+        catch (HttpRequestException)
+        {
+            errorMessage = "Unable to create the task list.";
+        }
+    }
+
+    private async Task DeleteListAsync(int id)
+    {
+        try
+        {
+            using var response = await Http.DeleteAsync($"/api/TodoLists/{id}");
+            response.EnsureSuccessStatusCode();
+            await LoadAsync();
+        }
+        catch (HttpRequestException)
+        {
+            errorMessage = "Unable to delete the task list.";
+        }
+    }
+
+    private async Task CreateItemAsync(int listId)
+    {
+        var title = newItemTitle.Trim();
+        if (title.Length == 0) return;
+
+        try
+        {
+            using var response = await Http.PostAsJsonAsync("/api/TodoItems", new { listId, title });
+            response.EnsureSuccessStatusCode();
+            newItemTitle = string.Empty;
+            await LoadAsync();
+        }
+        catch (HttpRequestException)
+        {
+            errorMessage = "Unable to create the task.";
+        }
+    }
+
+    private async Task ToggleItemAsync(TodoItemDto item)
+    {
+        try
+        {
+            using var response = await Http.PutAsJsonAsync($"/api/TodoItems/{item.Id}", new
+            {
+                id = item.Id,
+                title = item.Title,
+                done = !item.Done
+            });
+            response.EnsureSuccessStatusCode();
+            await LoadAsync();
+        }
+        catch (HttpRequestException)
+        {
+            errorMessage = "Unable to update the task.";
+        }
+    }
+
+    private async Task DeleteItemAsync(int id)
+    {
+        try
+        {
+            using var response = await Http.DeleteAsync($"/api/TodoItems/{id}");
+            response.EnsureSuccessStatusCode();
+            await LoadAsync();
+        }
+        catch (HttpRequestException)
+        {
+            errorMessage = "Unable to delete the task.";
+        }
+    }
+}

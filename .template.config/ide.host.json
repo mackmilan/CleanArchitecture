@@ -9,7 +9,7 @@
         "text": "Client Framework"
       },
       "description": {
-        "text": "Select the Client Framework type, or select None for Web API only."
+        "text": "Select Angular, React, Vue, Blazor WebAssembly, or None for Web API only."
       },
       "isVisible": true
     },

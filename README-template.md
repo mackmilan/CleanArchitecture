@@ -16,6 +16,10 @@ dotnet run --project .\src\AppHost
 
 The Aspire dashboard will open automatically, showing the application URLs and logs.
 
+<!--#if (UseBlazor)-->
+The Blazor WebAssembly frontend is served by the Web API host from the same origin. Open the Web API URL at `/` to use the frontend or `/scalar` to view the API reference.
+<!--#endif-->
+
 ## Code Styles & Formatting
 
 The template includes [EditorConfig](https://editorconfig.org/) support to help maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. The **.editorconfig** file defines the coding styles applicable to this solution.

@@ -29,11 +29,17 @@ var web = builder.AddProject<Projects.Web>(Services.WebApi)
     .WithAspNetCoreEnvironment()
     .WithUrlForEndpoint("http", url =>
     {
+#if (UseBlazor)
+        url.DisplayText = "Blazor frontend";
+        url.Url = "/";
+#else
         url.DisplayText = "Scalar API Reference";
         url.Url = "/scalar";
+#endif
     });
 
 #if (!UseApiOnly)
+#if (!UseBlazor)
 if (builder.ExecutionContext.IsRunMode)
 {
     builder.AddJavaScriptApp(Services.WebFrontend, "./../Web/ClientApp")
@@ -43,6 +49,7 @@ if (builder.ExecutionContext.IsRunMode)
         .WithHttpEndpoint(env: "PORT")
         .WithExternalHttpEndpoints();
 }
+#endif
 #endif
 
 builder.Build().Run();

@@ -15,6 +15,9 @@
     <Project Path="src/Infrastructure/Infrastructure.csproj" />
     <Project Path="src/Shared/Shared.csproj" />
     <Project Path="src/Web/Web.csproj" />
+    <!--#if (UseBlazor)-->
+    <Project Path="src/Web/ClientApp/ClientApp.csproj" />
+    <!--#endif-->
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Application.FunctionalTests/Application.FunctionalTests.csproj" />

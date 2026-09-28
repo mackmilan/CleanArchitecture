@@ -38,6 +38,7 @@ jobs:
           ${{ runner.os }}-nuget-
 
     #if (!UseApiOnly)
+    #if (!UseBlazor)
     - name: Install Node & cache npm packages
       uses: actions/setup-node@v7
       with:
@@ -47,6 +48,7 @@ jobs:
           src/Web/ClientApp/package-lock.json
           src/Web/ClientApp-React/package-lock.json
           src/Web/ClientApp-Vue/package-lock.json
+    #endif
     #endif
 
     - name: Install .NET

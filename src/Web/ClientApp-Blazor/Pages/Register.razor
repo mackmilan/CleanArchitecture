@@ -1,0 +1,51 @@
+@page "/register"
+@inject AuthService Authentication
+@inject NavigationManager Navigation
+
+<PageTitle>Register</PageTitle>
+
+<article class="auth-card">
+    <h1>Register</h1>
+    <form @onsubmit="HandleSubmitAsync" @onsubmit:preventDefault="true">
+        <label for="email">Email</label>
+        <input id="email" @bind="email" type="email" autocomplete="username" required />
+
+        <label for="password">Password</label>
+        <input id="password" @bind="password" type="password" autocomplete="new-password" minlength="6" required />
+
+        @if (!string.IsNullOrWhiteSpace(errorMessage))
+        {
+            <p class="error" role="alert">@errorMessage</p>
+        }
+
+        <button type="submit" disabled="@isSubmitting">Register</button>
+        <p class="form-footer">Already have an account? <NavLink href="/login">Log in</NavLink></p>
+    </form>
+</article>
+
+@code {
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private string? errorMessage;
+    private bool isSubmitting;
+
+    private async Task HandleSubmitAsync()
+    {
+        errorMessage = null;
+        isSubmitting = true;
+
+        try
+        {
+            await Authentication.RegisterAsync(email, password);
+            Navigation.NavigateTo("/login");
+        }
+        catch (HttpRequestException)
+        {
+            errorMessage = "Registration failed. Please try again.";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}

@@ -1,0 +1,55 @@
+@inherits LayoutComponentBase
+@implements IDisposable
+@inject AuthService Authentication
+@inject NavigationManager Navigation
+
+<header>
+    <nav aria-label="Main navigation">
+        <ul>
+            <li><NavLink class="brand" href="/">Clean Architecture</NavLink></li>
+        </ul>
+        <ul>
+            <li><NavLink href="/">Home</NavLink></li>
+            <li><NavLink href="/counter">Counter</NavLink></li>
+            <li><NavLink href="/weather">Weather</NavLink></li>
+            <li><NavLink href="/todo">Tasks</NavLink></li>
+        </ul>
+        <ul>
+            @if (Authentication.IsLoading)
+            {
+                <li><small aria-live="polite">Checking session…</small></li>
+            }
+            else if (Authentication.IsAuthenticated)
+            {
+                <li><a href="/logout" @onclick="LogoutAsync" @onclick:preventDefault="true">Log out</a></li>
+            }
+            else
+            {
+                <li><NavLink href="/login">Log in</NavLink></li>
+                <li><NavLink href="/register">Register</NavLink></li>
+            }
+        </ul>
+    </nav>
+</header>
+
+<main class="container">
+    @Body
+</main>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        Authentication.AuthenticationStateChanged += OnAuthenticationStateChanged;
+        await Authentication.InitializeAsync();
+    }
+
+    private void OnAuthenticationStateChanged() => _ = InvokeAsync(StateHasChanged);
+
+    private async Task LogoutAsync()
+    {
+        await Authentication.LogoutAsync();
+        Navigation.NavigateTo("/login");
+    }
+
+    public void Dispose() => Authentication.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+}

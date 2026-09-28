@@ -5,6 +5,7 @@
     "Angular",
     "API",
     "Aspire",
+    "Blazor",
     "Clean Architecture",
     "Cloud",
     "NUnit",
@@ -15,7 +16,7 @@
     "Web",
     "Web API"],
   "name": "Clean Architecture Solution",
-  "description": "A Clean Architecture Solution Template supporting Angular, React, Vue, and Web API-only apps built with ASP.NET Core and Aspire.",
+  "description": "A Clean Architecture Solution Template supporting Angular, React, Vue, Blazor, and Web API-only apps built with ASP.NET Core and Aspire.",
   "identity": "Clean.Architecture.Solution.CSharp",
   "groupIdentity": "Clean.Architecture.Solution",
   "shortName": "ca-sln",
@@ -243,6 +244,10 @@
           "description": "Use Vue with TypeScript"
         },
         {
+          "choice": "Blazor",
+          "description": "Use Blazor WebAssembly"
+        },
+        {
           "choice": "None",
           "description": "Web API only"
         }
@@ -261,6 +266,10 @@
     "UseVue": {
       "type": "computed",
       "value": "(ClientFramework == \"Vue\")"
+    },
+    "UseBlazor": {
+      "type": "computed",
+      "value": "(ClientFramework == \"Blazor\")"
     },
     "UseApiOnly": {
       "type": "computed",
@@ -340,6 +349,7 @@
           "exclude": [
             "src/Web/ClientApp-React/**",
             "src/Web/ClientApp-Vue/**",
+            "src/Web/ClientApp-Blazor/**",
             "src/Web/Web-webapi.http"
           ]
         },
@@ -348,6 +358,7 @@
           "exclude": [
             "src/Web/ClientApp/**",
             "src/Web/ClientApp-Vue/**",
+            "src/Web/ClientApp-Blazor/**",
             "src/Web/Web-webapi.http"
           ],
           "rename": {
@@ -359,6 +370,7 @@
           "exclude": [
             "src/Web/ClientApp/**",
             "src/Web/ClientApp-React/**",
+            "src/Web/ClientApp-Blazor/**",
             "src/Web/Web-webapi.http",
             "src/Web/ClientApp-Vue/node_modules/**",
             "src/Web/ClientApp-Vue/build/**",
@@ -369,11 +381,24 @@
           }
         },
         {
+          "condition": "(UseBlazor)",
+          "exclude": [
+            "src/Web/ClientApp/**",
+            "src/Web/ClientApp-React/**",
+            "src/Web/ClientApp-Vue/**",
+            "src/Web/Web-webapi.http"
+          ],
+          "rename": {
+            "ClientApp-Blazor": "ClientApp"
+          }
+        },
+        {
           "condition": "(UseApiOnly)",
           "exclude": [
             "src/Web/ClientApp/**",
             "src/Web/ClientApp-React/**",
             "src/Web/ClientApp-Vue/**",
+            "src/Web/ClientApp-Blazor/**",
             "src/Web/Pages/**",
             "src/Web/Web.http",
             "tests/Web.AcceptanceTests/**"

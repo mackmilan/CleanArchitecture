@@ -1,0 +1,63 @@
+@page "/weather"
+@inject HttpClient Http
+
+<PageTitle>Weather</PageTitle>
+
+<section>
+    <h1>Weather</h1>
+    <p>This page loads forecast data from the ASP.NET Core API.</p>
+
+    @if (isLoading)
+    {
+        <p aria-busy="true">Fetching your weather forecast…</p>
+    }
+    else if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <p class="error" role="alert">@errorMessage</p>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr><th>Date</th><th>Temp. (C)</th><th>Temp. (F)</th><th>Summary</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var forecast in forecasts)
+                {
+                    <tr>
+                        <td>@forecast.Date.ToString("MMM d, yyyy")</td>
+                        <td>@forecast.TemperatureC</td>
+                        <td>@forecast.TemperatureF</td>
+                        <td>@forecast.Summary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</section>
+
+@code {
+    private IReadOnlyCollection<WeatherForecastDto> forecasts = [];
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            forecasts = await Http.GetFromJsonAsync<List<WeatherForecastDto>>("/api/WeatherForecasts") ?? [];
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        {
+            errorMessage = "Please log in to view weather forecasts.";
+        }
+        catch (HttpRequestException)
+        {
+            errorMessage = "Unable to load weather forecasts. Please try again later.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}
