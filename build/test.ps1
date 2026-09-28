@@ -1,5 +1,5 @@
 param (
-    [string[]]$ClientFramework = @("angular", "react", "none"),
+    [string[]]$ClientFramework = @("angular", "react", "vue", "none"),
     [string[]]$Database = @("sqlite", "sqlserver", "postgresql")
 )
 
@@ -34,7 +34,7 @@ function CreateAndTestProject {
             dotnet build --configuration Release
             if ($LASTEXITCODE -ne 0) { throw "Build failed for $name" }
 
-            if ($clientFramework -ne "none") {
+            if ($clientFramework -in @("angular", "react", "vue")) {
                 Write-Host "Building client app: $name"
                 Push-Location "./src/Web/ClientApp"
                 try {

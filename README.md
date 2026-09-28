@@ -6,7 +6,7 @@
 [![Nuget](https://img.shields.io/nuget/dt/Clean.Architecture.Solution.Template?label=Downloads)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
 ![Twitter Follow](https://img.shields.io/twitter/follow/jasontaylordev?label=Follow&style=social)
 
-The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a new app with Angular, React, or Web API only, powered by ASP.NET Core and Aspire. Getting started is easy - simply install the **.NET template** (see below for full details).
+The goal of this template is to provide a straightforward and efficient approach to enterprise application development, leveraging the power of Clean Architecture and ASP.NET Core. Using this template, you can effortlessly create a new app with Angular, React, Vue + TypeScript, or Web API only, powered by ASP.NET Core and Aspire. Getting started is easy - simply install the **.NET template** (see below for full details).
 
 For full documentation, visit **[cleanarchitecture.jasontaylor.dev](https://cleanarchitecture.jasontaylor.dev)**.
 
@@ -17,7 +17,7 @@ If you find this project useful, please give it a star. Thanks! ⭐
 ### Prerequisites
 
 - [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
-- [Node.js](https://nodejs.org/) (LTS) — only required if you plan to use the Angular or React frontend
+- [Node.js](https://nodejs.org/) (LTS) — only required if you plan to use an Angular, React, or Vue frontend
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/) (or any OCI-compliant container runtime) — only required when using SQL Server or PostgreSQL. Not required when using SQLite (the default).
 
 ### Install the template
@@ -31,12 +31,12 @@ dotnet new install Clean.Architecture.Solution.Template
 Create a new solution using the template. Specify the client framework using `--client-framework` (`-cf`) and the database provider using `--database` (`-db`):
 
 ```bash
-dotnet new ca-sln --client-framework [angular|react|none] --database [postgresql|sqlite|sqlserver] --output YourProjectName
+dotnet new ca-sln --client-framework [angular|react|vue|none] --database [postgresql|sqlite|sqlserver] --output YourProjectName
 ```
 
 | Option | Values | Default |
 |---|---|---|
-| `--client-framework` | `angular`, `react`, `none` | `angular` |
+| `--client-framework` | `angular`, `react`, `vue`, `none` | `angular` |
 | `--database` | `postgresql`, `sqlite`, `sqlserver` | `sqlite` |
 
 **Examples:**
@@ -49,6 +49,11 @@ dotnet new ca-sln -cf angular -db postgresql -o YourProjectName
 ⚛️ React SPA with ASP.NET Core Web API and SQL Server:
 ```bash
 dotnet new ca-sln -cf react -db sqlserver -o YourProjectName
+```
+
+🟩 Vue 3 + TypeScript SPA with ASP.NET Core Web API and SQLite:
+```bash
+dotnet new ca-sln -cf vue -db sqlite -o YourProjectName
 ```
 
 🔌 ASP.NET Core Web API only with SQLite:
@@ -73,7 +78,7 @@ To learn more, see the [Getting started](https://cleanarchitecture.jasontaylor.d
 * [ASP.NET Core 10](https://docs.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core)
 * [Aspire](https://aspire.dev)
 * [Entity Framework Core 10](https://docs.microsoft.com/en-us/ef/core/)
-* [Angular 21](https://angular.dev/) or [React 19](https://react.dev/)
+* [Angular 21](https://angular.dev/), [React 19](https://react.dev/), or [Vue 3](https://vuejs.org/) with TypeScript
 * [MediatR](https://github.com/jbogard/MediatR)
 * [AutoMapper](https://automapper.org/)
 * [FluentValidation](https://fluentvalidation.net/)

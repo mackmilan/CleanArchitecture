@@ -10,11 +10,12 @@
     "NUnit",
     "Playwright",
     "React",
+    "Vue",
     "Test",
     "Web",
     "Web API"],
   "name": "Clean Architecture Solution",
-  "description": "A Clean Architecture Solution Template supporting Angular, React, and Web API-only apps built with ASP.NET Core and Aspire.",
+  "description": "A Clean Architecture Solution Template supporting Angular, React, Vue, and Web API-only apps built with ASP.NET Core and Aspire.",
   "identity": "Clean.Architecture.Solution.CSharp",
   "groupIdentity": "Clean.Architecture.Solution",
   "shortName": "ca-sln",
@@ -238,6 +239,10 @@
           "description": "Use React"
         },
         {
+          "choice": "Vue",
+          "description": "Use Vue with TypeScript"
+        },
+        {
           "choice": "None",
           "description": "Web API only"
         }
@@ -252,6 +257,10 @@
     "UseReact": {
       "type": "computed",
       "value": "(ClientFramework == \"React\")"
+    },
+    "UseVue": {
+      "type": "computed",
+      "value": "(ClientFramework == \"Vue\")"
     },
     "UseApiOnly": {
       "type": "computed",
@@ -296,6 +305,7 @@
       "target": "./",
       "exclude": [
         ".azure/**/*",
+        "artifacts/**/*",
         ".template.config/**/*",
         "templates/**/*",
         "**/*.filelist",
@@ -329,6 +339,7 @@
           "condition": "(UseAngular)",
           "exclude": [
             "src/Web/ClientApp-React/**",
+            "src/Web/ClientApp-Vue/**",
             "src/Web/Web-webapi.http"
           ]
         },
@@ -336,6 +347,7 @@
           "condition": "(UseReact)",
           "exclude": [
             "src/Web/ClientApp/**",
+            "src/Web/ClientApp-Vue/**",
             "src/Web/Web-webapi.http"
           ],
           "rename": {
@@ -343,10 +355,25 @@
           }
         },
         {
+          "condition": "(UseVue)",
+          "exclude": [
+            "src/Web/ClientApp/**",
+            "src/Web/ClientApp-React/**",
+            "src/Web/Web-webapi.http",
+            "src/Web/ClientApp-Vue/node_modules/**",
+            "src/Web/ClientApp-Vue/build/**",
+            "src/Web/ClientApp-Vue/src/web-api-client.ts"
+          ],
+          "rename": {
+            "ClientApp-Vue": "ClientApp"
+          }
+        },
+        {
           "condition": "(UseApiOnly)",
           "exclude": [
             "src/Web/ClientApp/**",
             "src/Web/ClientApp-React/**",
+            "src/Web/ClientApp-Vue/**",
             "src/Web/Pages/**",
             "src/Web/Web.http",
             "tests/Web.AcceptanceTests/**"

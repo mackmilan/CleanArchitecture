@@ -44,6 +44,9 @@
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --configuration production" />
     <!--#endif-->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" Condition="'$(UseReact)' == 'True'" />
+    <!--#if (UseVue)-->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" Condition="'$(UseVue)' == 'True'" />
+    <!--#endif-->
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
@@ -51,6 +54,9 @@
       <DistFiles Include="$(SpaRoot)dist\browser\**;" />
       <!--#endif-->
       <DistFiles Include="$(SpaRoot)build\**" Condition="'$(UseReact)' == 'True'" />
+      <!--#if (UseVue)-->
+      <DistFiles Include="$(SpaRoot)build\**" Condition="'$(UseVue)' == 'True'" />
+      <!--#endif-->
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
