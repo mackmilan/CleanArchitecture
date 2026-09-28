@@ -22,7 +22,8 @@
   "shortName": "ca-sln",
   "tags": {
     "language": "C#",
-    "type": "project"
+    "type": "solution",
+    "editorTreatAs": "solution"
   },
   "sourceName": "CleanArchitecture",
   "preferNameDirectory": true,
@@ -315,6 +316,8 @@
       "exclude": [
         ".azure/**/*",
         "artifacts/**/*",
+        ".git/**/*",
+        ".idea/**/*",
         ".template.config/**/*",
         "templates/**/*",
         "**/*.filelist",
